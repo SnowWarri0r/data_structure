@@ -1,3 +1,0 @@
-/Users/snowwarrior/CLionProjects/data_structure/sequence_list/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/snowwarrior/CLionProjects/data_structure/sequence_list/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/snowwarrior/CLionProjects/data_structure/sequence_list/cmake-build-debug/CMakeFiles/sequence_list.dir
