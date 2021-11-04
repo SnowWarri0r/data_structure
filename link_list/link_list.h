@@ -5,6 +5,8 @@
 #ifndef LINK_LIST_LINK_LIST_H
 #define LINK_LIST_LINK_LIST_H
 
+#include <iostream>
+
 template<typename T>
 struct node {
     T data;
@@ -89,6 +91,34 @@ public:
         }
         len--;
         return true;
+    }
+
+    void reverse() {
+        if (len <= 2) {
+            if (len <= 1) return;
+            head->next->next = head;
+            head = head->next;
+            head->next->next = nullptr;
+        }
+        node<T> *first = head, *second = first->next, *third = second->next;
+        head->next = nullptr;
+        while (third->next != nullptr) {
+            second->next = first;
+            first = second;
+            second = third;
+            third = third->next;
+        }
+        second->next = first;
+        third->next = second;
+        head = third;
+    }
+
+    void display() const {
+        auto *p = head;
+        while (p != nullptr) {
+            std::cout << p->data << " ";
+            p = p->next;
+        }
     }
 
 public:
