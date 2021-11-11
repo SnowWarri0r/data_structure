@@ -1,0 +1,8 @@
+//
+// Created by SnowWarrior on 2021/11/11.
+//
+
+#ifndef LINK_LIST_WITH_HEAD_LINK_LIST_H
+#define LINK_LIST_WITH_HEAD_LINK_LIST_H
+
+#endif //LINK_LIST_WITH_HEAD_LINK_LIST_H
