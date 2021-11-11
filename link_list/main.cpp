@@ -1,4 +1,3 @@
-#include <iostream>
 #include "link_list.h"
 
 void insertByAscending(link_list<int> &list, int data);
@@ -7,7 +6,7 @@ void deleteAll(link_list<int> &list, int val);
 
 void deleteLast(link_list<int> &list, int val);
 
-void reverse(link_list<int> &list);
+//void reverse(link_list<int> &list);
 
 int main() {
     //target1
@@ -73,14 +72,10 @@ int main() {
         std::cout << list2.get(i) << " ";
     }
     std::cout << std::endl;
-    for (int i = 0; i < list.length(); ++i) {
-        std::cout << list.get(i) << " ";
-    }
+    list.display();
     std::cout << std::endl;
-    reverse(list);
-    for (int i = 0; i < list.length(); ++i) {
-        std::cout << list.get(i) << " ";
-    }
+    list.reverse();
+    list.display();
     return 0;
 }
 
@@ -111,22 +106,22 @@ void deleteLast(link_list<int> &list, int val) {
     list.erase(p, data);
 }
 
-void reverse(link_list<int> &list) {
-    int l, r;
-    int n = list.length();
-    if (n % 2 == 1) {
-        l = (n - 1) / 2 - 1;
-        r = (n + 1) / 2 - 1;
-    } else {
-        l = n / 2 - 1;
-        r = l + 1;
-    }
-    while (r < n) {
-        int lVal = list.get(l);
-        int rVal = list.get(r);
-        list.set(r, lVal);
-        list.set(l, rVal);
-        l--;
-        r++;
-    }
-}
+//void reverse(link_list<int> &list) {
+//    int l, r;
+//    int n = list.length();
+//    if (n % 2 == 1) {
+//        l = (n - 1) / 2 - 1;
+//        r = (n + 1) / 2 - 1;
+//    } else {
+//        l = n / 2 - 1;
+//        r = l + 1;
+//    }
+//    while (r < n) {
+//        int lVal = list.get(l);
+//        int rVal = list.get(r);
+//        list.set(r, lVal);
+//        list.set(l, rVal);
+//        l--;
+//        r++;
+//    }
+//}
