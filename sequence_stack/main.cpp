@@ -4,6 +4,8 @@ void test0();
 
 void Dto16(unsigned int m);
 
+void postfix(std::string &e, std::string &f);
+
 void sort();
 
 int main() {
