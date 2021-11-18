@@ -125,6 +125,9 @@ public:
                 curr = next;
             }
         }
+        Node<T> *p = head;
+        while (p->next != nullptr) p = p->next;
+        tail = p;
     }
 
     void reverse() {
@@ -136,12 +139,57 @@ public:
             tail = head->next->next;
         }
         Node<T> *first = head->next, *mid = head->next->next, *last = head->next->next->next;
-
-
+        tail = first;
+        first->next = nullptr;
+        while (last != nullptr) {
+            mid->next = first;
+            first = mid;
+            mid = last;
+            last = last->next;
+        }
+        mid->next = first;
+        head->next = mid;
     }
 
-    void mergeByDescending(Node<T> *list) {
+    void mergeByDescending(LinkList<T> &list) {
+        list.reverse();
+        this->reverse();
+        Node<T> *p1 = this->head->next;
+        Node<T> *p2 = list.head->next;
+        Node<T> *p = this->head;
+        while (p1 != nullptr && p2 != nullptr) {
+            if (p1->data > p2->data) {
+                p->next = p1;
+                p1 = p1->next;
+            } else {
+                p->next = p2;
+                p2 = p2->next;
+            }
+            p = p->next;
+        }
+        if (p1 != nullptr) p->next = p1;
+        else p->next = p2;
+        while (p->next != nullptr) p = p->next;
+        tail = p;
+    }
 
+    void dispatch() {
+        sort([](const T &a, const T &b) -> bool {
+            return a & 1;
+        });
+    }
+
+    Node<T> *reverseNoK(int k) {
+        if (k > len) return nullptr;
+        Node<T> *low = head->next, *fast = head->next;
+        for (int i = 0; i < k; ++i) {
+            fast = fast->next;
+        }
+        while (fast != nullptr) {
+            low = low->next;
+            fast = fast->next;
+        }
+        return low;
     }
 
 private:
