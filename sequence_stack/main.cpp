@@ -1,17 +1,25 @@
 #include "SequenceStack.h"
+#include <iomanip>
 
 void test0();
 
 void Dto16(unsigned int m);
 
-void postfix(std::string &e, std::string &f);
+void postfix(const std::string &e, std::string &f);
+
+int priority(char c);
 
 void sort();
+
+void test3();
+
+double evalpost(const std::string &f);
 
 int main() {
 //    test0();
 //    Dto16(256);
-    sort();
+//    sort();
+    test3();
     return 0;
 }
 
@@ -71,6 +79,87 @@ void Dto16(unsigned int m) {
     std::cout << ans << std::endl;
 }
 
-void postfix(std::string &e, std::string &f) {
+int priority(char c) {
+    if (c == '+' || c == '-') return 1;
+    if (c == '*' || c == '/') return 2;
+    else return 3;
+}
 
+void postfix(const std::string &e, std::string &f) {
+    SequenceStack<char> stack;
+    for (char c: e) {
+        if ('0' <= c && c <= '9') {
+            f += c;
+        } else {
+            if (stack.empty() || c == '(') {
+                stack.push(c);
+            } else {
+                if (c == ')') {
+                    while (stack.top() != '(') {
+                        f += stack.top();
+                        stack.pop();
+                    }
+                    stack.pop();
+                } else {
+                    while (!stack.empty() && priority(stack.top()) >= priority(c)) {
+                        f += stack.top();
+                        stack.pop();
+                    }
+                    stack.push(c);
+                }
+            }
+        }
+    }
+    while (!stack.empty()) {
+        f += stack.top();
+        stack.pop();
+    }
+}
+
+double evalpost(const std::string &f) {
+    SequenceStack<double> stack;
+    double leftOperator, rightOperator;
+    for (char c: f) {
+        if ('0' <= c && c <= '9') stack.push(c - '0');
+        else {
+            rightOperator = stack.top();
+            stack.pop();
+            leftOperator = stack.top();
+            stack.pop();
+            switch (c) {
+                case '+': {
+                    stack.push(leftOperator + rightOperator);
+                    break;
+                }
+                case '-': {
+                    stack.push(leftOperator - rightOperator);
+                    break;
+                }
+                case '*' : {
+                    stack.push(leftOperator * rightOperator);
+                    break;
+                }
+                case '/': {
+                    stack.push(leftOperator / rightOperator);
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    }
+    double ans = stack.top();
+    stack.pop();
+    return ans;
+}
+
+void test3() {
+    std::string ans;
+    std::string input;
+    std::cout << "请输入中缀表达式：";
+    std::cin >> input;
+    postfix(input, ans);
+    std::cout << "后缀表达式：" << ans << std::endl;
+    std::cout << "计算结果：" << std::fixed << std::setprecision(2) << evalpost(ans);
 }

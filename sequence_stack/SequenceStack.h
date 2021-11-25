@@ -19,6 +19,13 @@ public:
         sp = bottom + 1;
     }
 
+    ~SequenceStack() {
+        delete[] bottom;
+        size = 0;
+        sp = nullptr;
+        bottom = nullptr;
+    }
+
     int length() const { return sp - bottom - 1; }
 
     bool empty() const { return length() == 0; }
