@@ -8,10 +8,14 @@
 #include<iostream>
 #include<queue>
 #include<stack>
+#include <utility>
+#include <vector>
 
 using std::queue;
 using std::cout;
 using std::stack;
+using std::pair;
+using std::vector;
 
 template<typename T>
 struct TreeNode {
@@ -29,6 +33,10 @@ class BinarySearchTree {
 public:
     BinarySearchTree() {
         root = nullptr;
+    }
+
+    BinarySearchTree(vector<int> &pre, vector<int> &mid) {
+        root = buildTree(0, 0, mid.size() - 1, pre, mid);
     }
 
     bool insert(int data) {
@@ -160,6 +168,106 @@ public:
                 }
             }
         }
+    }
+
+    bool equal(BinarySearchTree &tree) {
+        TreeNode<int> *p1 = root, *p2 = tree.root;
+        return isSameTree(p1, p2);
+    }
+
+    void swapChildren() {
+        TreeNode<int> *p = root;
+        swap(p);
+    }
+
+    //返回先序遍历最后一个节点地址和后序遍历第一个节点地址
+    pair<TreeNode<int> *, TreeNode<int> *> firstAndLast() const {
+        pair<TreeNode<int> *, TreeNode<int> *> pair;
+        TreeNode<int> *p1 = root, *p2 = root;
+        while (p1 != nullptr) {
+            if (p1->right != nullptr) {
+                p1 = p1->right;
+            } else if (p1->left != nullptr) {
+                p1 = p1->left;
+            } else break;
+        }
+        pair.first = p1;
+        while (p2 != nullptr) {
+            if (p2->left != nullptr) {
+                p2 = p2->left;
+            } else if (p2->right != nullptr) {
+                p2 = p2->right;
+            } else break;
+        }
+        pair.second = p2;
+        return pair;
+    }
+
+    int depth(int x) const {
+        TreeNode<int> *p = root;
+        queue<TreeNode<int> *> q;
+        q.push(p);
+        int sum = 0;
+        while (!q.empty()) {
+            p = q.front();
+            q.pop();
+            sum++;
+            if (p->data == x) {
+                while (!q.empty()) q.pop();
+                break;
+            }
+            if (p->left != nullptr) q.push(p->left);
+            if (p->right != nullptr) q.push(p->right);
+        }
+        sum++;
+        int ans = 0;
+        while (sum != 0) {
+            sum >>= 1;
+            ans++;
+        }
+        return ans;
+    }
+
+
+private:
+    /**
+     * 根据先序遍历序列和中序遍历序列构造二叉树
+     * @param preStart 当前根节点在pre中的下标
+     * @param inStart 以pre[preStart]为根节点的子树的节点值在mid中的范围起点
+     * @param inEnd 以pre[preStart]为根节点的子树的节点值在mid中的范围终点
+     * @param pre 先序遍历序列
+     * @param mid 中序遍历序列
+     * @return 构造出的二叉树
+     */
+    TreeNode<int> *buildTree(int preStart, int inStart, int inEnd, vector<int> &pre, vector<int> &mid) {
+        if (preStart >= pre.size() || inStart > inEnd) return nullptr;
+
+        auto *subRoot = new TreeNode<int>(pre[preStart]);
+        int inIndex = 0;
+        for (int i = inStart; i < inEnd; i++) {
+            if (mid[i] == pre[preStart]) {
+                inIndex = i;
+                break;
+            }
+        }
+        subRoot->left = buildTree(preStart + 1, inStart, inIndex - 1, pre, mid);
+        subRoot->right = buildTree(preStart + 1 + inIndex - inStart, inIndex + 1, inEnd, pre, mid);
+        return subRoot;
+    }
+
+    void swap(TreeNode<int> *node) {
+        if (node->left != nullptr) swap(node->left);
+        if (node->right != nullptr) swap(node->right);
+        TreeNode<int> *temp = node->left;
+        node->left = node->right;
+        node->right = temp;
+    }
+
+    bool isSameTree(TreeNode<int> *p1, TreeNode<int> *p2) {
+        if (p1 == nullptr && p2 == nullptr) return true;
+        if (p1 == nullptr || p2 == nullptr) return false;
+        if (p1->data != p2->data) return false;
+        return isSameTree(p1->left, p2->left) && isSameTree(p1->right, p2->right);
     }
 
 private:
