@@ -244,7 +244,7 @@ private:
 
         auto *subRoot = new TreeNode<int>(pre[preStart]);
         int inIndex = 0;
-        for (int i = inStart; i < inEnd; i++) {
+        for (int i = inStart; i <= inEnd; i++) {
             if (mid[i] == pre[preStart]) {
                 inIndex = i;
                 break;
