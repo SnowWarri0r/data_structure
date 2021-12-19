@@ -157,9 +157,9 @@ public:
                 p = p->left;
             } else {
                 p = stack.top();
-                stack.pop();
                 if (p->right == nullptr || pre == p->right) {
                     cout << p->data << " ";
+                    stack.pop();
                     pre = p;
                     p = nullptr;
                 } else {
