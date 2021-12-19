@@ -64,6 +64,10 @@ public:
         iterative_post_order_traversal(root);
     }
 
+    void level_order_traversal() {
+        tree_level_order_traversal(root);
+    }
+
     TreeNode *search(int x) {
         return iterative_tree_search(root, x);
     }
@@ -120,6 +124,26 @@ private:
         return nullptr;
     }
 
+    static void tree_level_order_traversal(TreeNode *tree) {
+        if (tree == nullptr) {
+            return;
+        }
+        queue<TreeNode *> q;
+        q.push(tree);
+        while (!q.empty()) {
+            TreeNode *node = q.front();
+            q.pop();
+            cout << node->val << " ";
+            if (node->left != nullptr) {
+                q.push(node->left);
+            }
+            if (node->right != nullptr) {
+                q.push(node->right);
+            }
+        }
+        cout << endl;
+    }
+
     static void tree_pre_order_traversal(TreeNode *tree) {
         if (tree == nullptr) {
             return;
@@ -134,19 +158,20 @@ private:
             return;
         }
         stack<TreeNode *> stack;
-        stack.push(tree);
         TreeNode *node = tree;
         while (node != nullptr || !stack.empty()) {
-            if (node != nullptr) {
+            while (node != nullptr) {
                 cout << node->val << " ";
                 stack.push(node);
                 node = node->left;
-            } else {
+            }
+            if (!stack.empty()) {
                 node = stack.top();
                 stack.pop();
                 node = node->right;
             }
         }
+        cout << endl;
     }
 
     static void tree_inorder_traversal(TreeNode *tree) {
@@ -174,6 +199,7 @@ private:
             cout << node->val << " ";
             node = node->right;
         }
+        cout << endl;
     }
 
     static void tree_post_order_traversal(TreeNode *tree) {
@@ -207,6 +233,7 @@ private:
                 node = node->right;
             }
         }
+        cout << endl;
     }
 
     static TreeNode *tree_maximum(TreeNode *tree) {

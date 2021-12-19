@@ -136,11 +136,12 @@ public:
         stack<TreeNode<int> *> stack;
         TreeNode<int> *p = root;
         while (p != nullptr || !stack.empty()) {
-            if (p != nullptr) {
+            while (p != nullptr) {
                 cout << p->data << " ";
                 stack.push(p);
                 p = p->left;
-            } else {
+            }
+            if (!stack.empty()) {
                 p = stack.top();
                 stack.pop();
                 p = p->right;
@@ -152,20 +153,18 @@ public:
         stack<TreeNode<int> *> stack;
         TreeNode<int> *p = root, *pre = nullptr;
         while (p != nullptr || !stack.empty()) {
-            if (p != nullptr) {
+            while (p != nullptr) {
                 stack.push(p);
                 p = p->left;
+            }
+            p = stack.top();
+            if (p->right == nullptr || pre == p->right) {
+                cout << p->data << " ";
+                pre = p;
+                stack.pop();
+                p = nullptr;
             } else {
-                p = stack.top();
-                if (p->right == nullptr || pre == p->right) {
-                    cout << p->data << " ";
-                    stack.pop();
-                    pre = p;
-                    p = nullptr;
-                } else {
-                    stack.push(p);
-                    p = p->right;
-                }
+                p = p->right;
             }
         }
     }
