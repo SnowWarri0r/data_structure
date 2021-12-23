@@ -91,10 +91,12 @@ public:
 
 //public:
 //    T &operator[](int index) {
+//        if (index < 0 || index >= len) return NULL;
 //        return elem[index];
 //    }
 //
-//    const int &operator[](int index) const {
+//    const T &operator[](int index) const {
+//        if (index < 0 || index >= len) return NULL;
 //        return elem[index];
 //    }
 

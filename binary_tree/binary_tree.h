@@ -36,7 +36,7 @@ public:
     }
 
     BinarySearchTree(vector<int> &pre, vector<int> &mid) {
-        root = buildTree(0, 0, mid.size() - 1, pre, mid);
+        root = buildTree(0, 0, (int) mid.size() - 1, pre, mid);
     }
 
     bool insert(int data) {
