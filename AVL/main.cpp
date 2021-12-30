@@ -16,5 +16,7 @@ int main() {
     tree.pre_order_traversal();
     tree.in_order_traversal();
     tree.post_order_traversal();
+    tree.erase(7);
+    tree.level_order_traversal();
     return 0;
 }
