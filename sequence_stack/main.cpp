@@ -17,8 +17,8 @@ double evalpost(const std::string &f);
 
 int main() {
 //    test0();
-//    Dto16(256);
-//    sort();
+    Dto16(256);
+    sort();
     test3();
     return 0;
 }

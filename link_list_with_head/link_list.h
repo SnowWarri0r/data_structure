@@ -6,6 +6,7 @@
 #define LINK_LIST_WITH_HEAD_LINK_LIST_H
 
 #include <iostream>
+#include <functional>
 
 template<typename T>
 struct Node {

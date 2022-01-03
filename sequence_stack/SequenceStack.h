@@ -35,10 +35,11 @@ public:
             T *newBase = new T[size + INCREMENT_SIZE];
             if (newBase == nullptr) throw std::runtime_error("allocating memory for stack error!");
             T *newSp = newBase + 1;
-            for (int i = 1; i < size; ++i) {
+            for (int i = 1; i <= size; ++i) {
                 *(newBase + i) = *(bottom + i);
                 newSp++;
             }
+            size = size + INCREMENT_SIZE;
             bottom = newBase;
             sp = newSp;
         }
