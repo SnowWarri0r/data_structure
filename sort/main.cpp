@@ -1,4 +1,4 @@
-#include <iostream>
+#include "heap.h"
 #include <vector>
 
 using namespace std;
@@ -14,6 +14,8 @@ void sort_quicksort(vector<int> &arr);
 void mergesort(vector<int> &arr);
 
 void merge_sort(vector<int> &arr, int l, int r);
+
+void heap_sort(vector<int> &arr);
 
 int main() {
     vector<int> arr{1, 4, 2, 7, 9, 8, 3, 6};
@@ -35,6 +37,10 @@ int main() {
     vector<int> arr4{1, 4, 2, 7, 9, 8, 3, 6};
     merge_sort(arr4, 0, (int) arr4.size() - 1);
     for (auto &x: arr4) cout << x << " ";
+    cout << endl;
+    vector<int> arr5{1, 4, 2, 7, 9, 8, 3, 6};
+    heap_sort(arr5);
+    for (auto &x: arr5) cout << x << " ";
     cout << endl;
     return 0;
 }
@@ -141,4 +147,11 @@ void mergesort(vector<int> &arr) {
         }
     }
     merge(arr, 0, len / 2 - 1, n - 1);
+}
+
+void heap_sort(vector<int> &arr) {
+    heap h(arr);
+    for (int & i : arr) {
+        h.remove(i);
+    }
 }
