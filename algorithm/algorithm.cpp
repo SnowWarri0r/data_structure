@@ -40,14 +40,14 @@ TreeNode *createBST(vector<int> &nums) {
                     cur->left = new TreeNode(x);
                     break;
                 }
-            } else {
+            } else if (x > cur->val) {
                 if (cur->right != nullptr) {
                     cur = cur->right;
                 } else {
                     cur->right = new TreeNode(x);
                     break;
                 }
-            }
+            } else break;
         }
     }
     return root;
@@ -144,9 +144,9 @@ void test3();
 void test4();
 
 int main() {
-//    test1();
-//    test3();
-//    test2();
+    test1();
+    test2();
+    test3();
     test4();
     return 0;
 }
@@ -313,6 +313,10 @@ void test3() {
 
 void test4() {
     vector<int> nums = generateRandom(10);
+    for (auto &i: nums) {
+        cout << i << " ";
+    }
+    cout << endl;
     auto tree = createBST(nums);
     level_order_traversal(tree);
 }

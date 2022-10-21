@@ -23,11 +23,15 @@ int main() {
 //        tree.insert(data);
 //    }
 //    tree.bfs();
+//    cout<<std::endl;
 //    tree.preOrderTraversal();
+//    cout<<std::endl;
+//    tree.postOrderTraversal();
+//    cout<<std::endl;
 //    test();
-//    test1();
-//    test2();
-//    test3();
+    test1();
+    test2();
+    test3();
     test4();
     return 0;
 }
